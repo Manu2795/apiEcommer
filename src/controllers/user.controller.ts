@@ -60,7 +60,7 @@ export const actualizarDatos = async (req:any, resp:any) => {
 
     if(!roleExist){
       return resp.status(400).json({
-        message: "El rol no existe",
+        message: "El rol no existe, Por favor intente de nuevo",
       });
     }
     const usuarioActualizado = await User.update({
