@@ -48,9 +48,7 @@ User.init({
         type: new DataTypes.STRING(128),
         allowNull: false,
         unique: true,
-        validate: {
-            isEmail: true,
-        }
+       
     },
     password: {
         type: new DataTypes.STRING(128),
