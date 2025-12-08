@@ -85,3 +85,38 @@ export const actualizarDatos = async (req:any, resp:any) => {
     }
 };
 
+//Eliminar usuario
+export const eliminarUsuario = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'El ID del usuario es obligatorio' });
+        }
+
+        // Verificar si el usuario existe
+        const usuarioExistente = await User.findOne({ where: { id } });
+
+        if (!usuarioExistente) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Eliminar el usuario
+        const usuariosEliminados = await userService.deleteUser(Number(id));
+
+        if (usuariosEliminados === 0) {
+            return res.status(404).json({ message: 'No se pudo eliminar el usuario' });
+        }
+
+        return res.status(200).json({ 
+            message: 'Usuario eliminado exitosamente' 
+        });
+
+    } catch (error: any) {
+        return res.status(500).json({ 
+            message: 'Error al eliminar el usuario', 
+            error: error.message 
+        });
+    }
+};
+
